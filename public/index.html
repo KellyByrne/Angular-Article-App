@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+	<head>
+		<meta charset= "utf-8">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+		<script src='/javascripts/reddit.js'></script>
+		<link rel='stylesheet', href='/stylesheets/style.css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+	</head>
+	<body class="reddit" ng-controller='Controller'>
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Reddit Clone</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ng-click="openForm()"><a href="#"><i class="fa fa-plus"></i>Submit</a></li>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" ng-model="search">
+        </div>
+      </form>
+       <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By <span class="caret"></span></a>
+          <ul class="dropdown-menu" ng-model="sortOrder">
+            <li ng-click='sortOrder= "arrows"'><a href="#">Votes</a></li>
+            <li ng-click='sortOrder= "date"'><a href="#">Date</a></li>
+            <li ng-click='sortOrder= "title"'><a href="#">Title</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div ng-show="clicked" class="col-md-10">
+				<form name="postform" novalidate>
+				<h1>Add a Post</h1>
+				<label>Title</label>
+				<input class="form-control" type="text" placeholder="Title" ng-model="title">
+				<br>
+				<br>
+				<label>Author</label>
+				<input class="form-control" type="text" placeholder="Author" ng-model="author" required>
+				<br>
+				<br>
+				<label>Image URL</label>
+				<input class="form-control" type="text" placeholder="Image URL" ng-model="image" required>
+				<br>
+				<br>
+				<label>Description</label>
+				<input class="form-control" type="text" placeholder="Description" ng-model="description" required>
+				<br>
+				<p ng-show="notValid" ng-class="{red: true}">All Fields Required</p>
+				<br>
+				<button class="btn btn-success" type="submit" ng-click= "addPost(postform.$valid); closeForm(postform.$valid)">Add Post</button>
+			</form>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+
+			
+		<div class="posts" ng-repeat = "post in posts | filter: search | orderBy: sortOrder">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<img class="image" ng-src="{{post.image}}">
+						</div>
+						<div class="col-md-8 middle">
+								<h3>{{post.title}} | <i class="fa fa-arrow-up" ng-click='plusOne(this)'> </i><i class="fa fa-arrow-down" ng-click='minusOne(this)'></i><span ng-class="{green: post.arrows > 0, red: post.arrows < 0}">{{post.arrows}}</span></h3>
+								<div class="col-md-9 description">
+									<p>{{post.description}}</p>
+									<p class="bottom"><i class="fa fa-calendar"></i> {{post.date | date: 'EEEE, MMMM d, yyyy'}}  |  <span ng-click="showComments()" ><i class="fa fa-comment"></i>{{post.comments.length}} Comments</span> | <i class="fa fa-pencil"></i> <span ng-click="openAdd()">Add Comment</span></p>
+									<span ng-show="addcomm">
+									<label>Author</label>
+									<input type="text" ng-model="this.elem.username" placeholder="username">
+									<label>Text</label>
+									<input type="text" ng-model="this.elem.commentBody" placeholder="comment text">
+									<button ng-click="addComment(this); closeAdd()" type="submit">Add Comment</button>
+								</span>
+								</div>
+								<div class="col-md-3">
+									<p>By: {{post.author}}</p>
+								</div>
+							</div>
+					</div>
+					<div class="row comments">
+						<div class="col-md-1"></div>
+						<div class="col-md-11">
+							<h4 ng-show="showcomm">Comments</h4>
+							<p ng-show="showcomm" ng-repeat='comment in post.comments'>{{comment.username}} : {{comment.commentBody}}</p>
+						</div>
+					</div>
+			</div>
+	</div>
+</div>
+	</body>
+</html>

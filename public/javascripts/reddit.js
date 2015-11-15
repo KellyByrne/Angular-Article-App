@@ -1,4 +1,4 @@
-var myApp = angular.module("myApp",[]);
+var myApp = angular.module("myApp",['angularMoment', 'ngAnimate']);
 		myApp.controller('Controller', function($scope) {
 			$scope.posts = [ ];
 			$scope.sortOrder = '-arrows';

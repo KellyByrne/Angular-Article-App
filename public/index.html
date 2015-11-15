@@ -8,7 +8,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.3/angular-moment.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular-animate.js"></script>
 	</head>
 	<body class="reddit" ng-controller='Controller'>
 	<nav class="navbar navbar-inverse">
@@ -85,7 +88,9 @@
 								<h3>{{post.title}} | <i class="fa fa-arrow-up" ng-click='plusOne(this)'> </i><i class="fa fa-arrow-down" ng-click='minusOne(this)'></i><span ng-class="{green: post.arrows > 0, red: post.arrows < 0}">{{post.arrows}}</span></h3>
 								<div class="col-md-9 description">
 									<p>{{post.description}}</p>
-									<p class="bottom"><i class="fa fa-calendar"></i> {{post.date | date: 'EEEE, MMMM d, yyyy'}}  |  <span ng-click="showComments()" ><i class="fa fa-comment"></i>{{post.comments.length}} Comments</span> | <i class="fa fa-pencil"></i> <span ng-click="openAdd()">Add Comment</span></p>
+									<p class="bottom"><i class="fa fa-calendar"></i> {{post.date | amCalendar}}  |  <span ng-click="showComments()" ><i class="fa fa-comment"></i><ng-pluralize count="post.comments.length"
+                when="{'1': '1 comment',
+                  'other': '{} comments'}"></ng-pluralize></span> | <i class="fa fa-pencil"></i> <span ng-click="openAdd()">Add Comment</span></p>
 									<span ng-show="addcomm">
 									<label>Author</label>
 									<input type="text" ng-model="this.elem.username" placeholder="username">

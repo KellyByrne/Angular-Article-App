@@ -30,7 +30,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ng-click="openForm()"><a href="#"><i class="fa fa-plus"></i>Submit</a></li>
+        <li ng-click="openForm()"><a href="#"><i class="fa fa-plus"></i>Add Post</a></li>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" ng-model="search">
@@ -88,15 +88,27 @@
 								<h3>{{post.title}} | <i class="fa fa-arrow-up" ng-click='plusOne(this)'> </i><i class="fa fa-arrow-down" ng-click='minusOne(this)'></i><span ng-class="{green: post.arrows > 0, red: post.arrows < 0}">{{post.arrows}}</span></h3>
 								<div class="col-md-9 description">
 									<p>{{post.description}}</p>
-									<p class="bottom"><i class="fa fa-calendar"></i> {{post.date | amCalendar}}  |  <span ng-click="showComments()" ><i class="fa fa-comment"></i><ng-pluralize count="post.comments.length"
-                when="{'1': '1 comment',
-                  'other': '{} comments'}"></ng-pluralize></span> | <i class="fa fa-pencil"></i> <span ng-click="openAdd()">Add Comment</span></p>
-									<span ng-show="addcomm">
+									<p class="bottom">
+										<i class="fa fa-calendar"></i> 
+										{{post.date | amCalendar}}  
+										|
+										<a href ng-click="showComments(post)" >
+											<i class="fa fa-comment"></i>
+											<ng-pluralize count="post.comments.length" when="{'1': '1 comment', 'other': '{} comments'}">
+											</ng-pluralize>
+										</a> 
+										| 
+                  	<a href ng-click="openAdd(post)">
+                  		<i class="fa fa-pencil"></i>
+                  		Add Comment
+                  	</a>
+                	</p>
+									<span ng-show="post.showCommentForm">
 									<label>Author</label>
 									<input type="text" ng-model="this.elem.username" placeholder="username">
 									<label>Text</label>
 									<input type="text" ng-model="this.elem.commentBody" placeholder="comment text">
-									<button ng-click="addComment(this); closeAdd()" type="submit">Add Comment</button>
+									<button ng-click="addComment(this)" type="submit">Add Comment</button>
 								</span>
 								</div>
 								<div class="col-md-3">
@@ -107,8 +119,8 @@
 					<div class="row comments">
 						<div class="col-md-1"></div>
 						<div class="col-md-11">
-							<h4 ng-show="showcomm">Comments</h4>
-							<p ng-show="showcomm" ng-repeat='comment in post.comments'>{{comment.username}} : {{comment.commentBody}}</p>
+							<h4 ng-show="post.showcomm">Comments</h4>
+							<p ng-show="post.showcomm" ng-repeat='comment in post.comments'>{{comment.username}} : {{comment.commentBody}}</p>
 						</div>
 					</div>
 			</div>

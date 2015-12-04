@@ -2,8 +2,8 @@ var myApp = angular.module("myApp",['angularMoment', 'ngAnimate']);
 		myApp.controller('Controller', function($scope) {
 
 		$scope.posts = [
-			{title:"My Little Sister", author: "Kelly Byrne", image:"https://s-media-cache-ak0.pinimg.com/236x/2b/13/d8/2b13d877d8f901800b6258b54018ee61.jpg", date: new Date(), description: "This is my beautiful little sister, Julia.", comments: [{username:'Dad', commentBody:'Great haircut, JujuB!'}, {username:'Julia', commentBody:'Thanks Dad!'}], arrows: 0, showcomm: false},
-			{title:"Mom", author: "Kelly", image:"http://www.wigglesdogwigs.com/preview/yappyhour_bb1.jpg", date: new Date(), description: "My mom is the best!", comments: [{username:'Mom', commentBody:'Thanks Kelly! I love you!'}], arrows:0, showcomm: false},
+			{title:"My Little Sister", author: "Kelly Byrne", image:"https://s-media-cache-ak0.pinimg.com/236x/2b/13/d8/2b13d877d8f901800b6258b54018ee61.jpg", date: new Date(), description: "This is my beautiful little sister, Julia.", comments: [{username:'Dad', commentBody:'Great haircut, JujuB!'}, {username:'Julia', commentBody:'Thanks Dad!'}], arrows: 6, showcomm: false},
+			{title:"Mom", author: "Kelly", image:"http://www.wigglesdogwigs.com/preview/yappyhour_bb1.jpg", date: new Date(), description: "My mom is the best!", comments: [{username:'Mom', commentBody:'Thanks Kelly! I love you!'}], arrows:4, showcomm: false},
 		];
 
 		$scope.sortOrder = '-arrows';

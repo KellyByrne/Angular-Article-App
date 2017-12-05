@@ -3,7 +3,7 @@ var myApp = angular.module("myApp",['angularMoment', 'ngAnimate']);
 
 		$scope.posts = [
 			{title:"My Little Sister", author: "Kelly Byrne", image:"https://s-media-cache-ak0.pinimg.com/236x/2b/13/d8/2b13d877d8f901800b6258b54018ee61.jpg", date: new Date(), description: "This is my beautiful little sister, Julia.", comments: [{username:'Dad', commentBody:'Great haircut, JujuB!'}, {username:'Julia', commentBody:'Thanks Dad!'}], arrows: 6, showcomm: false},
-			{title:"Mom", author: "Kelly", image:"http://www.wigglesdogwigs.com/preview/yappyhour_bb1.jpg", date: new Date(), description: "My mom is the best!", comments: [{username:'Mom', commentBody:'Thanks Kelly! I love you!'}], arrows:4, showcomm: false},
+			{title:"Mom", author: "Kelly", image:"https://i.pinimg.com/originals/90/58/f8/9058f8a6579c9c7e872fac9a5aaa622f.jpg", date: new Date(), description: "My mom is the best!", comments: [{username:'Mom', commentBody:'Thanks Kelly! I love you!'}], arrows:4, showcomm: false},
 		];
 
 		$scope.sortOrder = '-arrows';
